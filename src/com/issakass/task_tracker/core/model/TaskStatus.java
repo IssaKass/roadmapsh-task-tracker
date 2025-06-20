@@ -1,20 +1,22 @@
-package core;
+package com.issakass.task_tracker.core.model;
 
 /**
  * Author: abdallah-issakass
  */
-public enum Status {
-    TODO("todo"), IN_PROGRESS("in-progress"), DONE("done");
+public enum TaskStatus {
+    TODO("todo"),
+    IN_PROGRESS("in-progress"),
+    DONE("done");
 
     private final String value;
 
 
-    Status(String value) {
+    TaskStatus(String value) {
         this.value = value;
     }
 
-    public static Status fromValue(String value) {
-        for (Status status : Status.values()) {
+    public static TaskStatus fromValue(String value) {
+        for (TaskStatus status : TaskStatus.values()) {
             if (status.value.equalsIgnoreCase(value)) {
                 return status;
             }

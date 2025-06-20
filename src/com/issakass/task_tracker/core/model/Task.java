@@ -1,27 +1,33 @@
-package core;
+package com.issakass.task_tracker.core.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Author: abdallah-issakass
  */
 public class Task {
     private static int lastID = 1;
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     private int id;
     private String description;
-    private Status status;
+    private TaskStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public Task(String description) {
         this.id = lastID++;
         this.description = description;
-        this.status = Status.TODO;
+        this.status = TaskStatus.TODO;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public Task(int id, String description, TaskStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public int getId() {
@@ -41,11 +47,11 @@ public class Task {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Status getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
         this.updatedAt = LocalDateTime.now();
     }
@@ -69,8 +75,8 @@ public class Task {
     @Override
     public String toString() {
         return String.format(
-                "[%d] %s (status: %s, created: %s, updated: %s)",
-                id, description, status.getValue(), createdAt.format(FORMATTER), updatedAt.format(FORMATTER)
+                "[Task: %d | Description: %s | Status: %s | Created: %s | Updated: %s]",
+                id, description, status.getValue(), createdAt.toString(), updatedAt.toString()
         );
     }
 }

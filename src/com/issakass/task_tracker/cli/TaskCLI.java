@@ -1,7 +1,9 @@
-package cli;
+package com.issakass.task_tracker.cli;
 
-import core.Status;
-import core.TaskService;
+import com.issakass.task_tracker.core.model.Task;
+import com.issakass.task_tracker.core.service.TaskService;
+
+import java.util.List;
 
 /**
  * Author: abdallah-issakass
@@ -37,7 +39,7 @@ public class TaskCLI {
                     return;
                 }
 
-                taskService.updateDescription(Integer.parseInt(args[1]), args[2]);
+                taskService.updateTask(Integer.parseInt(args[1]), args[2]);
                 System.out.println("Task updated successfully!");
             }
             case "delete" -> {
@@ -49,13 +51,22 @@ public class TaskCLI {
                 taskService.deleteTask(Integer.parseInt(args[1]));
                 System.out.println("Task deleted successfully!");
             }
+            case "mark-todo" -> {
+                if (args.length < 2) {
+                    System.err.println("Usage: taskcli mark-todo <id>");
+                    return;
+                }
+
+                taskService.markTaskAsTodo(Integer.parseInt(args[1]));
+                System.out.println("Task marked as todo");
+            }
             case "mark-in-progress" -> {
                 if (args.length < 2) {
                     System.err.println("Usage: taskcli mark-in-progress <id>");
                     return;
                 }
 
-                taskService.updateStatus(Integer.parseInt(args[1]), Status.IN_PROGRESS);
+                taskService.markTaskAsInProgress(Integer.parseInt(args[1]));
                 System.out.println("Task marked as in-progress");
             }
             case "mark-done" -> {
@@ -64,14 +75,18 @@ public class TaskCLI {
                     return;
                 }
 
-                taskService.updateStatus(Integer.parseInt(args[1]), Status.DONE);
+                taskService.markTaskAsDone(Integer.parseInt(args[1]));
                 System.out.println("Task marked as done");
             }
             case "list" -> {
                 if (args.length < 2) {
-                    taskService.listTasks();
+                    listTasks(taskService.findAllTasks());
                 } else {
-                    taskService.listTasks(args[1]);
+                    switch (args[1]) {
+                        case "todo" -> listTasks(taskService.findTodoTasks());
+                        case "in-progress" -> listTasks(taskService.findInProgressTasks());
+                        case "done" -> listTasks(taskService.findDoneTasks());
+                    }
                 }
             }
             default -> System.out.println("Invalid command.");
@@ -82,5 +97,9 @@ public class TaskCLI {
     private void printHelp() {
         System.err.println("Usage: taskcli <command> [args]");
         System.err.println("[add|update|delete|mark-in-progress|mark-done|list...]");
+    }
+
+    private void listTasks(List<Task> tasks) {
+        tasks.forEach(System.out::println);
     }
 }
