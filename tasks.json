@@ -1,16 +1,1 @@
-[
-  {
-    "id": "3",
-    "description": "Write a program",
-    "status": "TODO",
-    "createdAt": "2025-06-21T14:54:09.603530",
-    "updatedAt": "2025-06-21T14:58:48.140291"
-  },
-  {
-    "id": "4",
-    "description": "play chess",
-    "status": "IN_PROGRESS",
-    "createdAt": "2025-06-21T15:19:35.742704",
-    "updatedAt": "2025-06-21T15:19:58.547327"
-  }
-]
+[{"id":"3","description":"Write a program","status":"TODO","createdAt":"2025-06-21T14:54:09.603530","updatedAt":"2025-06-21T14:58:48.140291"},{"id":"4","description":"play chess","status":"IN_PROGRESS","createdAt":"2025-06-21T15:19:35.742704","updatedAt":"2025-06-21T15:19:58.547327"}]
